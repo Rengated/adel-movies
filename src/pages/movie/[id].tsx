@@ -178,11 +178,11 @@ const Details: FC = () => {
               </div>
             </div>
             <div className="container flex flex-col flex items-center flex-col w-full">
-              <p className="text-3xl text-white mb-5">Comments</p>
+              <p className="text-3xl text-white mb-5 mr-auto">Comments</p>
 
               <button
                 onClick={onSendComment}
-                className=" border rounded-md p-3 mt-3 bg-none"
+                className=" border rounded-md p-3 mt-3 bg-none mr-auto"
                 style={{
                   color: `${currentTheme == "black" ? "white" : "black"}`,
                   borderColor: `${currentTheme == "black" ? "white" : "black"}`,
