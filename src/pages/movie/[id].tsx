@@ -16,37 +16,10 @@ import Image from "next/image";
 const Details: FC = () => {
   const [movieDetails, setMovieDetails] = useState<MovieList>();
   const [loading, setLoading] = useState(true);
-  const [show, setShow] = useState(false);
-  const [comment, setComment] = useState({
-    name: "",
-    text: "",
-  });
+
   const id = useParams()?.id;
   const { currentTheme } = useContext(Theme);
   const router = useRouter();
-
-  const onCommentChange = (e) => {
-    setComment((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-
-  const deleteComment = (comment) => {
-    const newComments = comments.filter((item) => item != comment);
-    setComments(newComments);
-    localStorage.setItem(id, JSON.stringify(newComments));
-  };
-
-  const [comments, setComments] = useState([]);
-
-  useEffect(() => {
-    const data = JSON.parse(window.localStorage.getItem(id));
-    if (data?.length) {
-      setComments(data);
-    }
-  }, [id]);
-
-  const onSendComment = () => {
-    setShow(true);
-  };
 
   useEffect(() => {
     const fetch = async () => {
@@ -62,12 +35,6 @@ const Details: FC = () => {
 
   return (
     <>
-      <Modal
-        id={id}
-        show={show}
-        setShow={setShow}
-        setComments={setComments}
-      />
       <div
         className={`pt-20`}
         style={{
@@ -174,35 +141,6 @@ const Details: FC = () => {
                     </a>
                   ))}
                 </div>
-              </div>
-            </div>
-            <div className="container flex flex-col flex items-center flex-col w-full">
-              <p className="text-3xl text-white mb-5 mr-auto">Comments</p>
-
-              <button
-                onClick={onSendComment}
-                className=" border rounded-md p-3 mt-3 bg-none mr-auto"
-                style={{
-                  color: `${currentTheme == "black" ? "white" : "black"}`,
-                  borderColor: `${currentTheme == "black" ? "white" : "black"}`,
-                }}>
-                Make review
-              </button>
-              <div className="flex flex-col mt-10 w-full">
-                {comments &&
-                  comments?.map((comment, index) => (
-                    <div
-                      key={index}
-                      className="flex flex-col border bg-gray-800 w-full p-5 text-white rounded-md mb-3">
-                      <p className="text-xl extrabold mb-2">{comment.name}</p>
-                      <p className="text-gray-200">{comment.text}</p>
-                      <button
-                        onClick={() => deleteComment(comment)}
-                        className="ml-auto font-extrabold hover:text-rose-200">
-                        DELETE
-                      </button>
-                    </div>
-                  ))}
               </div>
             </div>
           </section>
