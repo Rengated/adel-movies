@@ -15,6 +15,7 @@ export const Modal = ({ id, show, setComments, setShow }) => {
     }
     setComments((prev) => [...prev, comment]);
     setComment({ name: "", text: "" });
+    setShow(false);
   };
   if (!show) {
     return null;
