@@ -22,3 +22,11 @@ export const genres = [
   "War",
   "Western",
 ];
+
+export const sortTypes = [
+  {
+    name: "rating",
+    value: "rating",
+  },
+  { name: "likes", value: "like_count" },
+];
