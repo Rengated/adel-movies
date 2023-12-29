@@ -14,18 +14,14 @@ export default function Home() {
   const [currentPage, setCurrentPage] = useState(2);
   const [genre, setGenre] = useState("all");
   const [query, setQuery] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [sortBy, setSortBy] = useState("rating");
+  const [sortBy, setSortBy] = useState("date_added");
   const { currentTheme } = useContext(Theme);
   const debouncedQuery = useDebounce(query, 1000);
 
   useEffect(() => {
     const fetch = async () => {
-      setLoading(true);
       const response = await getFilms(String(1), genre, debouncedQuery, sortBy);
       setFilms(response.movies);
-      console.log(response.movies);
-      setLoading(false);
     };
     fetch();
   }, [genre, debouncedQuery, sortBy]);
@@ -68,12 +64,19 @@ export default function Home() {
                 placeholder="film name"
                 className="placeholder:text-white bg-transparent px-4 py-3 border w-60 border-white rounded-md text-white font-bold ml-5 max-md:ml-0 max-md:mb-5"
               />
+
               <select
                 defaultValue={"All"}
                 onChange={(e) => setGenre(e.target.value)}
                 className="bg-transparent px-4 py-3 border w-60 border-white rounded-md text-white font-bold ml-5 max-md:ml-0 max-md:mb-5">
                 {genres.map((genre, index) => (
-                  <option key={index}>{genre}</option>
+                  <option
+                    key={index}
+                    style={{
+                      backgroundColor: `blueviolet`,
+                    }}>
+                    {genre}
+                  </option>
                 ))}
               </select>
               <select
@@ -86,6 +89,9 @@ export default function Home() {
                 className="bg-transparent px-4 py-3 border w-60 border-white rounded-md text-white font-bold ml-5 max-md:ml-0">
                 {sortTypes.map((type, index) => (
                   <option
+                    style={{
+                      backgroundColor: `blueviolet`,
+                    }}
                     key={index}
                     value={type.value}>
                     {type.name}
